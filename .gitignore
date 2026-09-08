@@ -1,0 +1,15 @@
+data/
+__pycache__/
+*.py[cod]
+*.sqlite*
+*.db
+*.csv
+*.zip
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+teacher-key.txt
+.DS_Store
+Thumbs.db

@@ -1,0 +1,24 @@
+# Paid web service + persistent disk. Review Render's price before applying.
+services:
+  - type: web
+    name: media-mission
+    runtime: python
+    plan: 0.5c-512mb
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -c gunicorn.conf.py wsgi:application
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.11
+      - key: MEDIA_PRODUCTION
+        value: "1"
+      - key: MEDIA_DATA
+        value: /var/data/media-mission
+      - key: TEACHER_KEY
+        generateValue: true
+    disk:
+      name: media-mission-scores
+      mountPath: /var/data
+      sizeGB: 1
