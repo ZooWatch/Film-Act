@@ -1,1 +1,299 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="เกมภารกิจเรียนรู้พระราชบัญญัติภาพยนตร์และวีดิทัศน์ พ.ศ. 2551"><title>Media Mission · ตัดสินใจก่อนเผยแพร่</title><link rel="stylesheet" href="./style.css"><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","gsap":"https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm"}}</script></head><body><div id="cosmos" aria-hidden="true"></div><div id="vignette"></div><header><a class="brand" href="./">M<span>◉</span> / MEDIA MISSION</a><button id="motion" class="subtle">หยุดภาพเคลื่อนไหว</button><a class="subtle" href="./guide.html">วิธีใช้สำหรับอาจารย์ ↗</a></header><main id="app"></main><div id="notice" role="alert"></div><dialog id="cards"><div class="dialog-head"><h2>การ์ดกฎหมาย</h2><button id="close-cards" aria-label="ปิดการ์ด">✕</button></div><div id="card-content"></div></dialog><script src="./questions.js" defer></script><script src="./engine.js" defer></script><script src="./app.js" defer></script><script type="module" src="./background.js"></script></body></html>
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="เกมภารกิจเรียนรู้พระราชบัญญัติภาพยนตร์และวีดิทัศน์ พ.ศ. 2551"><title>Media Mission · ตัดสินใจก่อนเผยแพร่</title><style>:root{color-scheme:dark;--cyan:#73eeff;--muted:#b4c0d5;--line:#ffffff24;--panel:#0b1024ed}*{box-sizing:border-box}body{margin:0;background:#010103;color:#f4f7ff;font-family:'Leelawadee UI',Tahoma,system-ui,sans-serif;font-size:16px;line-height:1.75}#cosmos{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 65% 45%,#143a6266,transparent 60%)}#cosmos canvas{width:100%;height:100%;opacity:.7}#vignette{position:fixed;inset:0;z-index:-1;background:linear-gradient(90deg,#020512ed,#02051255);pointer-events:none}header{display:flex;gap:18px;align-items:center;padding:22px 5vw;border-bottom:1px solid var(--line)}a{color:var(--cyan);text-decoration:none}.brand{font:700 14px system-ui;letter-spacing:2px;margin-right:auto;color:white}.brand span{color:var(--cyan)}button,input,select{font:inherit}button,.button{border:1px solid #ffffff40;border-radius:12px;background:#ffffff0b;color:#fff;padding:12px 20px;cursor:pointer;transition:background .2s,transform .2s;display:inline-block}button:hover,.button:hover{background:#ffffff1c}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}.primary{background:linear-gradient(120deg,#b8f6ff,#65ddef);color:#051423;border-color:#e3fcff;font-weight:700;box-shadow:inset 0 1px 0 #fff,0 8px 40px #46dcff22}.primary:hover{background:#c4faff}.subtle{font-size:14px;background:none;border:0;color:var(--muted);padding:6px}.eyebrow{font:600 13px system-ui;letter-spacing:3px;color:var(--cyan);text-transform:uppercase}.start{display:grid;grid-template-columns:1.3fr 1fr;gap:6vw;align-items:center;min-height:76vh;max-width:1250px;margin:auto;padding:48px 5vw}.start h1{font-size:clamp(38px,5vw,72px);line-height:1.25;letter-spacing:-1px;margin:20px 0}.start h1 span{color:var(--cyan)}.muted{color:var(--muted)}.chips{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}.chip{border:1px solid var(--line);padding:6px 12px;border-radius:30px;font-size:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 20px 80px #0004;backdrop-filter:blur(16px)}h2{font-size:24px;line-height:1.5;margin:0 0 16px}h3{font-size:18px}label{display:block;margin:16px 0 8px}input,select{display:block;width:100%;border:1px solid #ffffff38;border-radius:10px;background:#060b1b;color:white;padding:12px}form .primary{width:100%;margin-top:22px}.small{font-size:14px}.workspace{max-width:1200px;margin:32px auto;padding:0 24px}.topline{display:flex;justify-content:space-between;gap:18px;align-items:center;margin:24px 0}.progress{height:5px;background:#ffffff20;border-radius:8px;margin:18px 0 30px;overflow:hidden}.progress div{height:100%;background:var(--cyan)}.layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:24px}.scenario{font-size:20px;line-height:1.9;margin-bottom:24px}.role{display:inline-block;color:#8ff5d3;background:#4bedb61a;border:1px solid #4bedb640;border-radius:8px;padding:5px 10px;font-size:14px;margin-bottom:16px}.options{display:grid;gap:10px}.option{text-align:left;display:flex;align-items:flex-start;gap:12px;width:100%;border-color:#ffffff25}.option .letter{border:1px solid #ffffff35;border-radius:7px;min-width:30px;text-align:center;color:var(--muted)}.option.selected{background:#60eaff1b;border-color:var(--cyan)}.option.selected .letter{color:#091823;background:var(--cyan)}.actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}.feedback{margin-top:22px;border-left:3px solid var(--cyan);background:#64eaff10;padding:18px}.feedback.bad{border-color:#ffbc77}.rankrow{display:flex;gap:10px;justify-content:space-between;border-bottom:1px solid var(--line);padding:12px 0}.rankrow span:nth-child(2){flex:1;overflow-wrap:anywhere}.score{font:700 88px system-ui;color:var(--cyan);line-height:1.2;margin:20px 0}.score small{font-size:24px;color:var(--muted)}.center{text-align:center}.review{margin:20px 0}.review summary{cursor:pointer;font-weight:700}dialog{color:white;background:#0c1328;border:1px solid #5bcadd;border-radius:20px;max-width:720px;width:calc(100% - 28px);max-height:85vh;padding:24px}dialog::backdrop{background:#000b;backdrop-filter:blur(6px)}.dialog-head{display:flex;justify-content:space-between;align-items:center}.law{border-top:1px solid var(--line);padding:20px 0}#notice{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:#7c2035;padding:12px 24px;border-radius:12px;display:none;max-width:90vw}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:12px;text-align:left;border-bottom:1px solid var(--line)}.room{margin-bottom:20px}.room-code{font:700 32px system-ui;color:var(--cyan);letter-spacing:4px}footer{font-size:14px;color:var(--muted);margin:24px 0}.stat{color:var(--cyan);font-weight:700}.timer{font-variant-numeric:tabular-nums}.step-label{font-size:14px;color:var(--cyan);margin:24px 0 12px}.wait{max-width:650px;margin:60px auto}.inline{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.inline select{width:auto}.pill{font-size:13px;letter-spacing:1px}.recovery{margin-top:20px}.recovery summary{cursor:pointer}@media(max-width:760px){header{padding:16px;gap:8px;flex-wrap:wrap}.brand{width:100%}.start{grid-template-columns:1fr;padding:30px 20px;gap:28px}.start h1{font-size:40px}.layout{grid-template-columns:1fr}.panel{padding:22px}.workspace{padding:0 16px}.topline{align-items:flex-start;flex-wrap:wrap}.scenario{font-size:18px}.start .intro{max-width:550px}button{min-height:44px}.score{font-size:70px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* White, sky blue, green and yellow theme */
+:root{color-scheme:light;--cyan:#08759b;--muted:#506476;--line:#cbdfe9;--panel:#ffffff;--green:#147449;--yellow:#ffdf65}
+body{background:#f5fbff;color:#18384a}
+#cosmos{background:radial-gradient(ellipse at 85% 20%,#c6eeff 0,transparent 52%),radial-gradient(ellipse at 15% 85%,#d5f5df 0,transparent 50%),#f7fcff}
+#cosmos canvas{opacity:.045;mix-blend-mode:multiply}
+#vignette{background:linear-gradient(110deg,#ffffff75,transparent 60%,#fff4b83b)}
+header{background:#ffffffed;border-bottom:1px solid #cbdfe9;box-shadow:0 3px 20px #166b8810}
+.brand{color:#18384a}.brand span{color:#139361}
+a{color:#086d95}
+button,.button{background:#f0faff;color:#18536b;border-color:#aacedd}
+button:hover,.button:hover{background:#dff3ff}
+.primary{background:linear-gradient(120deg,#b9e9ff,#c5f1d6);color:#123f49;border-color:#85c5c6;box-shadow:inset 0 1px 0 #fff,0 8px 25px #12735b14}
+.primary:hover{background:linear-gradient(120deg,#9bdeff,#a9e7c2)}
+button:disabled{opacity:.55}.subtle{background:none;color:var(--muted)}
+.eyebrow,.step-label{color:#096d94}.start h1 span{color:#107749}
+.panel{background:#fff;border-color:#cbdfe9;box-shadow:0 15px 50px #18576d12;backdrop-filter:none}
+.chip{background:#e3f5ff;color:#155c7b;border-color:#acd9ed}
+.chip:nth-child(2){background:#e1f5e8;color:#176443;border-color:#a9d8b8}
+.chip:nth-child(3){background:#fff2b7;color:#725600;border-color:#e5ca62}
+input,select{background:#fbfdff;color:#18384a;border-color:#aac8d5}
+input::placeholder{color:#5e7481}
+.progress{background:#dceaf0;height:7px}.progress div{background:linear-gradient(90deg,#43b8eb,#46b879)}
+.role{background:#e1f5e8;color:#176443;border-color:#a9d8b8}
+.option{background:#fff;border-color:#c1d7e2;color:#18384a}
+.option:hover{background:#eff9ff}
+.option .letter{background:#f0f8fc;border-color:#bdd6e2;color:#376279}
+.option.selected{background:#e5f6ff;border-color:#1780ac;box-shadow:0 0 0 1px #1780ac}
+.option.selected .letter{background:#08759b;color:#fff;border-color:#08759b}
+.feedback{background:#eaf8ef;border-color:#23865a;color:#1c5437}
+.feedback.bad{background:#fff7d4;border-color:#c69411;color:#685000}
+.feedback .muted{color:#426052}.feedback.bad .muted{color:#6f602f}
+.score{color:#137549}.score small{color:var(--muted)}
+.timer{background:#fff2b7;color:#695100;border:1px solid #e4ca65;padding:6px 12px;border-radius:10px}
+.stat{color:#137549}
+dialog{background:#fff;color:#18384a;border-color:#a9cfdd;box-shadow:0 24px 80px #173e6233}
+dialog::backdrop{background:#1c425a66}
+#notice{background:#fff2b7;color:#624900;border:1px solid #d3b44d;box-shadow:0 8px 32px #4d420e22}
+hr{border:0;border-top:1px solid var(--line)}
+</style><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","gsap":"https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm"}}</script></head><body><div id="cosmos" aria-hidden="true"></div><div id="vignette"></div><header><a class="brand" href="./">M<span>◉</span> / MEDIA MISSION</a></header><main id="app"></main><div id="notice" role="alert"></div><dialog id="cards"><div class="dialog-head"><h2>การ์ดกฎหมาย</h2><button id="close-cards" aria-label="ปิดการ์ด">✕</button></div><div id="card-content"></div></dialog><script>
+window.GAME_CONTENT = {"cards": [{"title": "01 · ภาพยนตร์ ≠ วีดิทัศน์", "law": "มาตรา 4 · ตัวบท PDF หน้า 2–3 / สไลด์หัวข้อความหมาย", "text": "ภาพยนตร์คือวัสดุที่บันทึกภาพ หรือภาพและเสียง ให้เห็นภาพเคลื่อนไหวต่อเนื่อง แต่ไม่รวมวีดิทัศน์ ส่วนวีดิทัศน์มีลักษณะเป็นเกมการเล่น คาราโอเกะที่มีภาพประกอบ หรือลักษณะอื่นตามกฎกระทรวง อย่าจำแนกจากนามสกุลไฟล์หรือหน้าจอที่ใช้ดู"}, {"title": "02 · ก่อนเริ่มถ่าย", "law": "มาตรา 20–24 · ตัวบท PDF หน้า 8–9 / สไลด์ 21–25", "text": "การสร้างภาพยนตร์ต่างประเทศในไทยต้องขออนุญาตตามมาตรา 20 เว้นแต่เข้าข้อยกเว้นมาตรา 22 เช่น ข่าวหรือภาพยนตร์ส่วนตัว ผู้สร้างที่สงสัยเรื่องเนื้อหาตามมาตรา 23 อาจขอความเห็นก่อนสร้างได้ หากการถ่ายทำเสียหายต่อสิ่งแวดล้อมหรือทรัพยากรของรัฐ ต้องปรับปรุงให้อยู่ในสภาพเหมาะสมตามมาตรา 24"}, {"title": "03 · ก่อนเผยแพร่", "law": "มาตรา 25 และ 27 · ตัวบท PDF หน้า 9–10 / สไลด์ 36, 38", "text": "ภาพยนตร์ที่จะฉาย ให้เช่า แลกเปลี่ยน หรือจำหน่ายในไทยต้องผ่านการตรวจพิจารณาและได้รับอนุญาต ข้อยกเว้นมีเงื่อนไข: หนังส่วนตัวเมื่อนำฉายทั่วไปต้องตรวจ และหนังที่ผ่านการตรวจเพื่อฉายทางโทรทัศน์แล้ว เมื่อนำฉายสื่อประเภทอื่นก็ต้องตรวจตามมาตรา 25"}, {"title": "04 · อ่านเรตให้เป็น", "law": "มาตรา 26, 44 และ 46 · ตัวบท PDF หน้า 9–10, 14 / สไลด์ 26–34", "text": "มี 7 ประเภท: ส่งเสริมการเรียนรู้, ทั่วไป, เหมาะกับอายุ 13+, 15+, 18+, ห้ามต่ำกว่า 20 ปีดู, และห้ามเผยแพร่ในไทย ประเภท 20 มีข้อยกเว้นผู้บรรลุนิติภาวะโดยสมรสตามตัวบทที่ใช้เรียน การฉายในสถานที่ที่บุคคลทั่วไปสามารถดูได้ต้องเป็นประเภทส่งเสริมการเรียนรู้หรือทั่วไป ไม่ใช่เลือก 13+ เพราะคิดว่าไม่รุนแรง"}, {"title": "05 · อนุญาตแล้วต้องระวังอะไร", "law": "มาตรา 30 และ 43 · ตัวบท PDF หน้า 11, 14 / สไลด์ 36–37", "text": "ใบอนุญาตภาพยนตร์ไม่ทำให้พ้นความรับผิดตามกฎหมายอื่น เช่น ลิขสิทธิ์ หนังที่ผู้รับใบอนุญาตมีไว้ฉายหรือจำหน่ายต้องมีเนื้อหาตรงกับฉบับที่ได้รับอนุญาตและแสดงเครื่องหมาย ประเภท และรหัสตามกฎหมาย"}, {"title": "06 · กิจการกับตัวหนังเป็นคนละเรื่อง", "law": "มาตรา 37–41 · ตัวบท PDF หน้า 12–13 / สไลด์ 41", "text": "กิจการโรงภาพยนตร์ที่ทำเป็นธุรกิจหรือได้รับประโยชน์ตอบแทนต้องมีใบอนุญาต รวมถึงโรงกลางแจ้ง โดยใบอนุญาตโรงกลางแจ้งใช้ได้ทั่วประเทศ กิจการให้เช่า แลกเปลี่ยน หรือจำหน่ายก็ต้องมีใบอนุญาต ใบอนุญาตตามมาตรา 37–38 อายุ 5 ปี หมายเหตุ: สไลด์ 41 สรุปโรงกลางแจ้งคลาดเคลื่อน เกมยึดมาตรา 37 ในตัวบท"}], "questions": [{"id": "d1", "phase": "นิยาม", "role": "ผู้กำกับ", "title": "หนังสั้นบนมือถือ", "story": "คุณบันทึกหนังสั้นเล่าเรื่องเป็นภาพเคลื่อนไหวพร้อมเสียง เปิดดูบนมือถือ ไม่มีการเล่นโต้ตอบหรือคาราโอเกะ จัดเป็นอะไร?", "actions": ["ภาพยนตร์", "วีดิทัศน์"], "reasons": ["ลักษณะภาพเคลื่อนไหวที่บันทึกไว้และไม่ใช่วีดิทัศน์ตามนิยาม", "ทุกอย่างบนมือถือคือวีดิทัศน์"], "correct": [0, 0], "card": 0, "why": "อุปกรณ์รับชมไม่ใช่เกณฑ์จำแนกตามมาตรา 4"}, {"id": "d2", "phase": "นิยาม", "role": "ผู้ประกอบกิจการ", "title": "เกมบนคอมพิวเตอร์", "story": "โปรแกรมแสดงภาพเคลื่อนไหวให้ผู้เล่นควบคุมตัวละครและทำภารกิจ จัดเข้าประเภทใดตามนิยามที่เรียน?", "actions": ["ภาพยนตร์", "วีดิทัศน์"], "reasons": ["ภาพสวยเหมือนหนังจึงเป็นภาพยนตร์", "มีลักษณะเป็นเกมการเล่นตามมาตรา 4"], "correct": [1, 1], "card": 0, "why": "เกมการเล่นอยู่ในนิยามวีดิทัศน์ แม้ภาพจะเหมือนภาพยนตร์"}, {"id": "d3", "phase": "นิยาม", "role": "ผู้ประกอบกิจการ", "title": "ร้องเพลงพร้อมภาพ", "story": "เครื่องคาราโอเกะเล่นภาพเคลื่อนไหวประกอบเพลงให้ผู้ใช้ร้องตาม จัดเป็นอะไร?", "actions": ["ภาพยนตร์", "วีดิทัศน์"], "reasons": ["คาราโอเกะที่มีภาพประกอบอยู่ในนิยามวีดิทัศน์", "มีเสียงร้องจึงเป็นภาพยนตร์เสมอ"], "correct": [1, 0], "card": 0, "why": "มาตรา 4 ระบุคาราโอเกะที่มีภาพประกอบไว้โดยเฉพาะ"}, {"id": "d4", "phase": "นิยาม", "role": "ผู้จัดจำหน่าย", "title": "เปลี่ยนไฟล์ เปลี่ยนประเภท?", "story": "นำหนังสารคดีบันทึกภาพเคลื่อนไหวมาแปลงเป็น MP4 โดยเนื้อหายังเหมือนเดิมและไม่ใช่เกมหรือคาราโอเกะ จะจำแนกอย่างไร?", "actions": ["ยังเป็นภาพยนตร์", "เปลี่ยนเป็นวีดิทัศน์"], "reasons": ["นามสกุล MP4 ทำให้เป็นวีดิทัศน์", "พิจารณาลักษณะเนื้อหาตามมาตรา 4 ไม่ใช่นามสกุลไฟล์"], "correct": [0, 1], "card": 0, "why": "การเปลี่ยนรูปแบบไฟล์ไม่เปลี่ยนลักษณะตามนิยามที่โจทย์กำหนด"}, {"id": "p1", "phase": "ฝึก", "role": "ผู้กำกับ", "title": "กองถ่ายจากต่างประเทศ", "story": "กองถ่ายจะสร้างภาพยนตร์ต่างประเทศเพื่อการค้าในไทย ไม่เข้าข้อยกเว้นตามมาตรา 22 ควรวางแผนอย่างไร?", "actions": ["เริ่มถ่ายแล้วค่อยขออนุญาต", "ดำเนินการขออนุญาตสร้างและเรื่องสถานที่ก่อน", "ขอเพียงเจ้าของโรงภาพยนตร์"], "reasons": ["มาตรา 20 กำหนดการอนุญาตสร้างภาพยนตร์ต่างประเทศในไทย", "ภาพยนตร์ทุกเรื่องยกเว้นการขออนุญาต", "มีงบประมาณเพียงพอก็ถ่ายได้"], "correct": [1, 0], "card": 1, "why": "มาตรา 20 กำหนดทั้งการอนุญาตสร้างและการอนุญาตจากหน่วยงานรัฐผู้รับผิดชอบสถานที่ตามกฎหมายที่เกี่ยวข้อง"}, {"id": "p2", "phase": "ฝึก", "role": "ผู้กำกับ", "title": "คืนพื้นที่หลังปิดกล้อง", "story": "การถ่ายทำทำให้ทรัพยากรธรรมชาติของรัฐเสียหาย ผู้สร้างควรทำอะไร?", "actions": ["ปล่อยไว้เพราะถ่ายเสร็จแล้ว", "ให้ผู้ชมช่วยรับผิดชอบ", "ปรับปรุงให้อยู่ในสภาพเหมาะสมตามกฎหมาย"], "reasons": ["มาตรา 24 กำหนดหน้าที่ของผู้สร้าง", "การสร้างสื่อยกเว้นหน้าที่ด้านสิ่งแวดล้อม", "ความเสียหายเป็นหน้าที่ของนักแสดงเสมอ"], "correct": [2, 0], "card": 1, "why": "หน้าที่ตามมาตรา 24 ไม่สิ้นสุดเพียงเพราะปิดกองถ่าย"}, {"id": "p3", "phase": "ฝึก", "role": "ผู้จัดจำหน่าย", "title": "จากหนังส่วนตัวสู่รอบสาธารณะ", "story": "หนังที่ทำไว้ดูส่วนตัวกำลังจะนำฉายเป็นการทั่วไปในไทย และไม่มีข้อยกเว้นอื่น ต้องทำอย่างไร?", "actions": ["ใช้ข้อยกเว้นส่วนตัวต่อไป", "ตรวจพิจารณาและได้รับอนุญาตก่อน", "เพียงติดป้ายไม่เก็บเงิน"], "reasons": ["ฉายฟรียกเว้นเสมอ", "มาตรา 27 วรรคสองให้กลับเข้าสู่มาตรา 25 เมื่อเปลี่ยนการใช้", "ทำด้วยมือถือจึงไม่ต้องตรวจ"], "correct": [1, 1], "card": 2, "why": "ข้อยกเว้นส่วนตัวไม่ติดตามหนังไปตลอด เมื่อฉายทั่วไปต้องพิจารณาตามมาตรา 25"}, {"id": "p4", "phase": "ฝึก", "role": "ผู้ประกอบกิจการ", "title": "หน้าจอในพื้นที่เปิด", "story": "คุณจัดฉายหนังบนจอในสถานที่ที่บุคคลทั่วไปสามารถดูได้ ควรเลือกหนังที่ได้รับการจัดประเภทใด?", "actions": ["ส่งเสริมการเรียนรู้หรือทั่วไป", "13+ ทุกเรื่อง", "18+ หากมีป้ายเตือน"], "reasons": ["มาตรา 46 ระบุประเภทตามมาตรา 26 (1) หรือ (2)", "ป้ายเตือนใช้แทนประเภทหนังได้", "เจ้าของจอเลือกได้โดยไม่มีเงื่อนไข"], "correct": [0, 0], "card": 3, "why": "มาตรา 46 กำหนดประเภทไว้ชัดเจนสำหรับสถานที่ดังกล่าว"}, {"id": "p5", "phase": "ฝึก", "role": "ผู้จัดจำหน่าย", "title": "ผ่านตรวจ แต่เพลงยังไม่ได้สิทธิ์", "story": "หนังผ่านการตรวจและอนุญาตแล้ว แต่ยังมีปัญหาสิทธิ์เพลง คุณควรทำอย่างไร?", "actions": ["จำหน่ายเลยเพราะอนุญาตแล้ว", "ตรวจและจัดการสิทธิ์เพลงก่อนเผยแพร่", "ลบชื่อเจ้าของเพลงออก"], "reasons": ["มาตรา 30 ไม่ยกเว้นความรับผิดตามกฎหมายอื่น", "การอนุญาตเท่ากับได้รับลิขสิทธิ์ทั้งหมด", "เพลงไม่มีความเกี่ยวข้องกับกฎหมาย"], "correct": [1, 0], "card": 4, "why": "การตรวจภาพยนตร์ไม่ใช่การให้สิทธิ์ใช้ผลงานของผู้อื่น"}, {"id": "p6", "phase": "ฝึก", "role": "ผู้ประกอบกิจการ", "title": "โรงหนังกลางแจ้งเชิงธุรกิจ", "story": "ทีมคุณจะประกอบกิจการโรงหนังกลางแจ้งแบบได้รับประโยชน์ตอบแทน ต้องมีใบอนุญาตตามมาตรา 37 หรือไม่?", "actions": ["ไม่ต้อง เพราะเป็นกลางแจ้ง", "ต้อง และใบอนุญาตประเภทกลางแจ้งใช้ได้ทั่วประเทศ", "ขอเฉพาะเมื่อติดเครื่องปรับอากาศ"], "reasons": ["มาตรา 37 ยกเว้นเฉพาะข้อจำกัดการใช้ใบอนุญาตรายโรงสำหรับกลางแจ้ง", "สไลด์สั้น ๆ ใช้แทนตัวบทได้เสมอ", "ฉายกลางแจ้งไม่ใช่โรงภาพยนตร์"], "correct": [1, 0], "card": 5, "why": "ตัวบทมาตรา 37 ไม่ได้ยกเว้นการขอใบอนุญาตสำหรับกลางแจ้ง เกมแก้จุดคลาดเคลื่อนของสไลด์ 41 โดยยึดตัวบท"}, {"id": "e1", "phase": "ประเมิน", "role": "ผู้กำกับ", "title": "ก่อนสร้างฉากที่ยังสงสัย", "story": "ผู้สร้างสงสัยว่าฉากที่วางแผนจะขัดข้อกำหนดด้านเนื้อหาตามมาตรา 23 จึงต้องการความเห็นก่อนสร้าง ทางเลือกใดตรงกับกฎหมาย?", "actions": ["ขอให้คณะกรรมการพิจารณาฯ ให้ความเห็นก่อนสร้าง", "ให้คนดูโหวตแล้วถือว่าถูกกฎหมาย", "เผยแพร่ก่อนแล้วค่อยสอบถาม"], "reasons": ["มาตรา 23 เปิดช่องให้ขอความเห็นก่อนดำเนินการสร้าง", "เสียงส่วนใหญ่แทนความเห็นตามกฎหมายได้", "กฎหมายบังคับเฉพาะนักแสดง"], "correct": [0, 0], "card": 1, "why": "มาตรา 23 วรรคสองเปิดให้ขอความเห็นในประเด็นดังกล่าวก่อนสร้าง"}, {"id": "e2", "phase": "ประเมิน", "role": "ผู้จัดจำหน่าย", "title": "จากโทรทัศน์สู่โรงหนัง", "story": "ภาพยนตร์ผ่านการตรวจเพื่อฉายทางโทรทัศน์ตามกฎหมายที่เกี่ยวข้องแล้ว จะนำไปฉายในโรงหนัง โดยไม่มีข้อยกเว้นอื่น ควรทำอย่างไร?", "actions": ["นำไปฉายได้ทันทีทุกสื่อ", "ตรวจพิจารณาและได้รับอนุญาตตามมาตรา 25", "เพียงใส่โลโก้สถานี"], "reasons": ["มาตรา 27 วรรคสามกำหนดเมื่อเปลี่ยนไปฉายทางสื่อประเภทอื่น", "อนุญาตโทรทัศน์ใช้ได้ทุกช่องทางตลอดไป", "โรงหนังไม่ใช่การฉาย"], "correct": [1, 0], "card": 2, "why": "ข้อยกเว้นสำหรับโทรทัศน์มีขอบเขต เมื่อฉายทางสื่ออื่นต้องเข้าสู่มาตรา 25"}, {"id": "e3", "phase": "ประเมิน", "role": "ผู้ประกอบกิจการ", "title": "ผู้ชมอายุ 19 ปี", "story": "ผู้ชมอายุ 19 ปี ซึ่งยังไม่บรรลุนิติภาวะโดยการสมรส ขอเข้าดูหนังประเภทห้ามต่ำกว่า 20 ปีดูในโรงภาพยนตร์ คุณควรทำอย่างไร?", "actions": ["ให้เข้าเมื่อมีเพื่อนอายุ 20 ปี", "ให้เข้าเมื่อเซ็นยินยอม", "ไม่อนุญาตให้เข้าดูรอบนี้"], "reasons": ["มาตรา 26 (6) ประกอบมาตรา 44 ห้ามกรณีตามข้อเท็จจริงนี้", "คำยินยอมยกเว้นกฎหมายได้", "ประเภท 20 เป็นคำแนะนำเท่านั้น"], "correct": [2, 0], "card": 3, "why": "โจทย์ระบุว่าไม่เข้าเงื่อนไขข้อยกเว้นโดยการสมรส จึงต้องปฏิบัติตามข้อห้าม"}, {"id": "e4", "phase": "ประเมิน", "role": "ผู้จัดจำหน่าย", "title": "ฉบับเพิ่มฉาก", "story": "คุณเป็นผู้รับใบอนุญาตจำหน่ายภาพยนตร์ มีคนเสนอให้ขายฉบับเพิ่มฉากซึ่งเนื้อหาไม่ตรงกับฉบับที่ผ่านอนุญาต จะทำอย่างไร?", "actions": ["ขายโดยใช้รหัสฉบับเดิม", "ไม่นำฉบับที่ไม่ตรงกับที่อนุญาตออกจำหน่าย", "ขายเฉพาะช่วงกลางคืน"], "reasons": ["มาตรา 43 กำหนดเนื้อหาและเครื่องหมายให้ตรงกับฉบับอนุญาต", "รหัสเดิมครอบคลุมเนื้อหาที่เพิ่มได้เสมอ", "ช่วงเวลาขายยกเว้นเรื่องเนื้อหา"], "correct": [1, 0], "card": 4, "why": "ใบอนุญาตเดิมไม่ใช่สิทธิ์เพิ่มเนื้อหาแล้วใช้เครื่องหมายเดิมโดยอัตโนมัติ"}, {"id": "e5", "phase": "ประเมิน", "role": "ผู้ประกอบกิจการ", "title": "ใบอนุญาตใกล้หมดอายุ", "story": "ร้านจำหน่ายภาพยนตร์ตามมาตรา 38 จะเปิดต่อ ใบอนุญาตใกล้ครบกำหนดตามตัวบท ควรทำอย่างไร?", "actions": ["ต่ออายุเมื่อครบ 10 ปีเท่านั้น", "ถือว่าไม่มีวันหมดอายุ", "ยื่นขอต่ออายุก่อนสิ้นอายุ 5 ปี"], "reasons": ["มาตรา 40 ระบุอายุ 5 ปี และให้ยื่นก่อนสิ้นอายุ", "ยอดขายดีทำให้ต่ออายุอัตโนมัติ", "ใบอนุญาตไม่มีอายุ"], "correct": [2, 0], "card": 5, "why": "มาตรา 40 กำหนดอายุและการยื่นขอต่ออายุ ก่อนสิ้นอายุ"}]};
+
+</script><script>
+(function(root){
+const questions=root.GAME_CONTENT.questions;
+function create(student,nickname,now=Date.now()){return {version:1,student,nickname,index:0,xp:0,score:0,attempts:{},answers:[],deadline:now+40*60000,done:false};}
+function expire(s,now=Date.now()){if(now>=s.deadline)s.done=true;return s.done;}
+function answer(s,id,action,reason,now=Date.now()){
+ if(expire(s,now))throw Error('หมดเวลาหรือจบเกมแล้ว');
+ const q=questions[s.index];if(!q||q.id!==id)throw Error('คำตอบนี้บันทึกแล้ว');
+ if(!Number.isInteger(action)||!Number.isInteger(reason)||action<0||action>=q.actions.length||reason<0||reason>=q.reasons.length)throw Error('เลือกคำตอบทั้งสองขั้น');
+ const ac=action===q.correct[0],rc=reason===q.correct[1],points=Number(ac)+Number(rc),exam=q.phase==='ประเมิน',count=s.attempts[id]||0;
+ s.attempts[id]=count+1;const advance=exam||points===2;
+ if(advance){s.index++;s.xp+=exam?points*100:count===0?150:100;s.score+=exam?points:0;s.answers.push({id,points,action,reason});}
+ if(s.index===questions.length)s.done=true;
+ return exam?{advance:true}:{advance,actionCorrect:ac,reasonCorrect:rc,why:q.why,card:q.card};
+}
+function forms(s){const u=new URL('https://forms.cloud.microsoft/Pages/ResponsePage.aspx');u.search=new URLSearchParams({id:'gnzLDoQbNkut7yCBtcESW4n4816a8PBCjVoi3DfBlG1URTFPNlgxRDFIMVRJSDMxRFkzWjZCS0hKOCQlQCNjPTEu',rf3e987bb0a78489893ef3ffd18583225:s.student,rc3482652eb70493cb348b6ae23fa8a4f:s.nickname,r8c0b4335a7724aa2bb8a137f6e12a608:String(s.score)});return u.href;}
+root.GameEngine={create,answer,expire,forms};
+})(globalThis);
+
+</script><script>
+(()=>{
+const app=document.getElementById('app'),{cards,questions}=GAME_CONTENT,E=GameEngine,STORE='media-mission-pages-v1';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let game=null,selected={},feedback=null,shown=null;
+function notice(message){const e=document.getElementById('notice');e.textContent=message;e.style.display='block';setTimeout(()=>e.style.display='none',6000)}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(game))}catch(e){notice('เบราว์เซอร์บันทึกความคืบหน้าไม่ได้ กรุณาอย่าปิดหน้านี้ระหว่างเล่น')}}
+try{const raw=JSON.parse(localStorage.getItem(STORE));if(raw&&raw.version===1&&Number.isInteger(raw.index)&&raw.index>=0&&raw.index<=questions.length&&Number.isFinite(raw.deadline)&&raw.attempts&&Array.isArray(raw.answers))game=raw;}catch(e){}
+function bind(id,fn){const e=document.getElementById(id);if(e)e.onclick=fn}
+bind('close-cards',()=>document.getElementById('cards').close());
+function openCards(){document.getElementById('card-content').innerHTML=cards.map(c=>`<article class="law"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p><p class="small muted">${esc(c.law)}</p></article>`).join('');document.getElementById('cards').showModal()}
+function start(){app.innerHTML=`<section class="start"><div><div class="eyebrow">MEDIA MISSION / PAGES EDITION</div><h1>ทุกการตัดสินใจ<br>มี<span>กฎหมาย</span><br>อยู่เบื้องหลัง</h1><p class="muted">สลับบทบาทคนทำสื่อ เรียนรู้ผ่านสถานการณ์<br>ตั้งแต่แยกประเภทสื่อไปจนถึงการเผยแพร่</p><div class="chips"><span class="chip">40 นาที</span><span class="chip">15 ภารกิจ</span><span class="chip">10 คะแนน</span></div><p class="small muted">เปิดการ์ดกฎหมายได้ • ไม่มีโบนัสความเร็ว<br>เรียนตาม พ.ร.บ. 2551 และเอกสารที่อาจารย์กำหนด</p></div><form id="join" class="panel"><div class="eyebrow">YOUR NEXT MISSION</div><h2>พร้อมเริ่มภารกิจ?</h2><label for="student">รหัสนักศึกษา</label><input id="student" name="student" required maxlength="40"><label for="nickname">ชื่อ-นามสกุล</label><input id="nickname" name="nickname" required maxlength="150"><p class="small muted">ไม่ต้องใช้รหัสห้อง เริ่มเมื่ออาจารย์แจ้ง<br>เวลาเริ่มนับเมื่อกดปุ่มและยังเดินต่อแม้ปิดหน้า</p><button class="primary">เริ่มภารกิจ →</button><p class="small muted">ความคืบหน้าเก็บในเบราว์เซอร์นี้ เมื่อจบให้ส่งคะแนนผ่าน Microsoft Forms</p></form></section>`;document.getElementById('join').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),student=f.get('student').trim(),nickname=f.get('nickname').trim();if(!student||!nickname)return;game=E.create(student,nickname);save();render()}}
+function sidebar(){return `<aside class="panel"><div class="eyebrow">MISSION LOG</div><h3>เส้นทางการเรียนรู้</h3><div class="rankrow">01 · แยกประเภทสื่อ <span>4 ข้อ</span></div><div class="rankrow">02 · ฝึกตัดสินใจ <span>6 ข้อ</span></div><div class="rankrow">03 · ประเมิน <span>5 ข้อ</span></div><p class="small muted">ช่วงฝึก: ถูกครั้งแรก 150 XP<br>ลองใหม่จนผ่าน 100 XP<br>ประเมิน: ส่วนที่ถูก 100 XP</p><p class="small muted">คะแนนวิชาเต็ม 10 คะแนน มาจากภารกิจประเมินเท่านั้น</p><button id="card-side">เปิดการ์ดกฎหมาย</button><p class="small muted">อาจารย์รวบรวมคะแนนจาก Forms ไม่มีตารางอันดับร่วมกันในเว็บนี้</p></aside>`}
+function renderTopBar(){return `<div class="topline"><div><span class="eyebrow">${esc(game.nickname)}</span><div>${esc(game.student)} · <span class="stat">${game.done?game.xp:game.xp-game.score*100} XP</span></div></div><div class="inline"><span id="timer" class="timer"></span><button id="card-button">▤ การ์ดกฎหมาย</button></div></div>`}
+function render(){if(!game)return start();if(E.expire(game))save();if(game.done)return finish();const q=feedback?.advance?shown:questions[game.index];shown=q;
+app.innerHTML=`<section class="workspace">${renderTopBar()}<div class="progress"><div style="width:${game.index/questions.length*100}%"></div></div><div class="layout"><article class="panel"><div class="topline"><span class="eyebrow">${esc(q.phase)} / ${questions.indexOf(q)+1} OF 15</span><span class="role">${esc(q.role)}</span></div><h2>${esc(q.title)}</h2><p class="scenario">${esc(q.story)}</p>${q.phase==='นิยาม'?'<p class="small muted">เปิดการ์ด 01 อ่านนิยามมาตรา 4 ก่อนตอบได้ ตอบถูกทั้งสองขั้นจึงผ่าน</p>':''}${q.phase==='ประเมิน'?'<p class="small muted">ข้อละ 2 คะแนน บันทึกครั้งแรกที่กดส่ง แก้ไขไม่ได้ และเฉลยหลังส่งครบหรือหมดเวลา</p>':''}<div class="step-label">01 / คุณจะตัดสินใจอย่างไร?</div><div class="options">${options(q.actions,'action',q)}</div><div class="step-label">02 / หลักกฎหมายใดสนับสนุน?</div><div class="options">${options(q.reasons,'reason',q)}</div><div class="actions"><button class="primary" id="answer" ${selected.action===undefined||selected.reason===undefined||feedback?.advance?'disabled':''}>${q.phase==='ประเมิน'?'ยืนยันและบันทึกคำตอบ':'ตรวจคำตอบ'} →</button></div>${feedback?`<div class="feedback ${feedback.advance?'':'bad'}" role="status"><strong>การตัดสินใจ ${feedback.actionCorrect?'✓ ถูก':'ยังไม่ถูก'} · เหตุผล ${feedback.reasonCorrect?'✓ ถูก':'ยังไม่ถูก'}</strong><p>${esc(feedback.why)}</p><p class="small muted">${esc(cards[feedback.card].law)}</p>${feedback.advance?'<button class="primary" id="next">ภารกิจถัดไป →</button>':'<p>ลองเลือกใหม่ แล้วตรวจคำตอบอีกครั้งได้</p>'}</div>`:''}</article>${sidebar()}</div><footer>เนื้อหาอ้างอิงเอกสารในชั้นเรียน ไม่ใช่การยืนยันสถานะกฎหมายปัจจุบัน</footer></section>`;
+document.querySelectorAll('[data-option]').forEach(el=>el.onclick=()=>{if(feedback?.advance)return;selected[el.dataset.kind]=Number(el.dataset.option);render()});bind('answer',()=>{try{const result=E.answer(game,q.id,selected.action,selected.reason);save();if(q.phase==='ประเมิน'){feedback=null;selected={}}else feedback=result;render()}catch(e){notice(e.message);render()}});bind('next',()=>{feedback=null;selected={};render()});bindCards();tick()}
+function options(list,kind,q){return list.map((text,id)=>({text,id,order:hash(game.student+q.id+kind+id)})).sort((a,b)=>a.order-b.order).map((o,i)=>`<button class="option ${selected[kind]===o.id?'selected':''}" data-kind="${kind}" data-option="${o.id}" aria-pressed="${selected[kind]===o.id}"><span class="letter">${String.fromCharCode(65+i)}</span><span>${esc(o.text)}</span></button>`).join('')}
+function hash(s){let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return h}
+function bindCards(){bind('card-button',openCards);bind('card-side',openCards)}
+function finish(){app.innerHTML=`<section class="workspace">${renderTopBar()}<div class="layout"><article class="panel"><div class="eyebrow">MISSION COMPLETE</div><h2>${game.index===15?'จบภารกิจแล้ว':'หมดเวลาแล้ว'}</h2><div class="score">${game.score}<small> / 10</small></div><p>รหัสนักศึกษา ${esc(game.student)} · ${esc(game.nickname)}</p><p class="muted">คะแนนนี้บันทึกในเบราว์เซอร์ของคุณ ยังไม่ได้ส่งให้อาจารย์${game.index<15?' ข้อประเมินที่ยังไม่ส่งได้ 0 คะแนน':''}</p><a class="button primary" href="${esc(E.forms(game))}" target="_blank" rel="noopener noreferrer">ส่งคะแนนให้อาจารย์ผ่าน Microsoft Forms ↗</a><p class="small muted">ฟอร์มจะกรอกข้อมูลล่วงหน้า ตรวจสอบและกดส่งใน Forms อีกครั้ง เว็บนี้ไม่สามารถตรวจสอบสถานะการส่งของ Forms ได้</p><h3>เฉลยภารกิจประเมิน</h3>${questions.filter(q=>q.phase==='ประเมิน').map(q=>{const a=game.answers.find(x=>x.id===q.id);return `<details class="review"><summary>${esc(q.title)} · ${a?.points||0}/2</summary><p>${esc(q.actions[q.correct[0]])}</p><p>${esc(q.reasons[q.correct[1]])}</p><p>${esc(q.why)}</p><p class="small muted">${esc(cards[q.card].law)}</p></details>`}).join('')}<hr><button id="reset">เริ่มรอบใหม่ / เปลี่ยนผู้เล่น</button><p class="small muted">เริ่มรอบใหม่จะล้างคะแนนในเบราว์เซอร์นี้ ส่ง Forms ให้เรียบร้อยก่อน</p></article>${sidebar()}</div></section>`;bindCards();bind('reset',()=>{if(!confirm('ล้างผลในเครื่องและเริ่มใหม่? โปรดส่งคะแนนผ่าน Forms ก่อน'))return;game=null;feedback=null;selected={};try{localStorage.removeItem(STORE)}catch(e){}start()});tick()}
+function tick(){if(!game)return;const e=document.getElementById('timer');if(e){const sec=Math.max(0,Math.ceil((game.deadline-Date.now())/1000));e.textContent=game.done?'จบรอบแล้ว':`เหลือ ${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;}if(!game.done&&E.expire(game)){save();render()}}
+setInterval(tick,1000);render();
+
+})();
+
+</script><script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+try {
+
+
+
+
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(60, 30, 60);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.6;
+    document.getElementById('cosmos').appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.03;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.4;
+
+    const noiseChunk = `
+        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+        vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+        float snoise(vec3 v) {
+            const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+            const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+            vec3 i  = floor(v + dot(v, C.yyy) );
+            vec3 x0 = v - i + dot(i, C.xxx) ;
+            vec3 g = step(x0.yzx, x0.xyz);
+            vec3 l = 1.0 - g;
+            vec3 i1 = min( g.xyz, l.zxy );
+            vec3 i2 = max( g.xyz, l.zxy );
+            vec3 x1 = x0 - i1 + C.xxx;
+            vec3 x2 = x0 - i2 + C.yyy;
+            vec3 x3 = x0 - D.yyy;
+            i = mod289(i);
+            vec4 p = permute( permute( permute( i.z + vec4(0.0, i1.z, i2.z, 1.0 )) + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+            float n_ = 0.142857142857;
+            vec3  ns = n_ * D.wyz - D.xzx;
+            vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+            vec4 x_ = floor(j * ns.z);
+            vec4 y_ = floor(j - 7.0 * x_ );
+            vec4 x = x_ *ns.x + ns.yyyy;
+            vec4 y = y_ *ns.x + ns.yyyy;
+            vec4 h = 1.0 - abs(x) - abs(y);
+            vec4 b0 = vec4( x.xy, y.xy );
+            vec4 b1 = vec4( x.zw, y.zw );
+            vec4 s0 = floor(b0)*2.0 + 1.0;
+            vec4 s1 = floor(b1)*2.0 + 1.0;
+            vec4 sh = -step(h, vec4(0.0));
+            vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+            vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+            vec3 p0 = vec3(a0.xy,h.x);
+            vec3 p1 = vec3(a0.zw,h.y);
+            vec3 p2 = vec3(a1.xy,h.z);
+            vec3 p3 = vec3(a1.zw,h.w);
+            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+            p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+            vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+            m = m * m;
+            return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
+        }
+    `;
+
+    const coreGroup = new THREE.Group();
+    scene.add(coreGroup);
+
+    const bhMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+    const bhGeo = new THREE.SphereGeometry(4, 64, 64);
+    coreGroup.add(new THREE.Mesh(bhGeo, bhMat));
+
+    const auraMat = new THREE.ShaderMaterial({
+        uniforms: { uTime: { value: 0 }, uIntensity: { value: 1.0 } },
+        vertexShader: `
+            varying vec3 vNormal;
+            varying vec3 vView;
+            void main() {
+                vNormal = normalize(normalMatrix * normal);
+                vView = normalize(-(modelViewMatrix * vec4(position, 1.0)).xyz);
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `,
+        fragmentShader: `
+            uniform float uIntensity;
+            varying vec3 vNormal;
+            varying vec3 vView;
+            void main() {
+                float rim = pow(1.0 - max(dot(vNormal, vView), 0.0), 4.0);
+                gl_FragColor = vec4(vec3(1.0, 0.45, 0.1) * rim * uIntensity * 5.0, 1.0);
+            }
+        `,
+        side: THREE.BackSide, transparent: true, blending: THREE.AdditiveBlending
+    });
+    coreGroup.add(new THREE.Mesh(new THREE.SphereGeometry(4.25, 64, 64), auraMat));
+
+    const instanceCount = window.innerWidth < 760 ? 1400 : 3500;
+    const streakGeo = new THREE.CylinderGeometry(0.01, 0.12, 2.2, 3);
+    streakGeo.rotateX(Math.PI / 2);
+    
+    const diskMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+            uTime: { value: 0 },
+            uMorph: { value: 0.1 },
+            uCompression: { value: 1.0 },
+            uIntensity: { value: 1.0 },
+            uOrbitScale: { value: 1.0 }
+        },
+        vertexShader: `
+            ${noiseChunk}
+            uniform float uTime;
+            uniform float uMorph;
+            uniform float uCompression;
+            uniform float uIntensity;
+            uniform float uOrbitScale;
+            varying vec3 vColor;
+            varying float vOpacity;
+            void main() {
+                vec4 instPos = instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
+                float rOriginal = length(instPos.xz);
+                float r = rOriginal * uCompression;
+                float initialAngle = atan(instPos.z, instPos.x);
+                float orbitalVelocity = (1.5 / sqrt(rOriginal)) * uOrbitScale;
+                float currentAngle = initialAngle + (uTime * orbitalVelocity);
+                vec3 morphedWorldPos = vec3(cos(currentAngle) * r, instPos.y, sin(currentAngle) * r);
+                float noise = snoise(vec3(morphedWorldPos.x * 0.08, morphedWorldPos.z * 0.08, uTime * 0.3));
+                morphedWorldPos.y += noise * uMorph * 4.0;
+                vec3 viewDir = normalize(cameraPosition - morphedWorldPos);
+                vec3 orbitDir = normalize(vec3(-sin(currentAngle), 0.0, cos(currentAngle)));
+                float doppler = dot(orbitDir, viewDir);
+                vec3 hot = vec3(1.0, 0.95, 0.9);
+                vec3 warm = vec3(1.0, 0.45, 0.1);
+                vec3 cool = vec3(0.1, 0.35, 1.0);
+                vec3 color = mix(cool, warm, (1.0 - smoothstep(12.0, 45.0, r)));
+                color = mix(color, hot, (1.0 - smoothstep(4.0, 10.0, r)));
+                vColor = color * (1.3 + doppler * 0.7) * uIntensity;
+                vOpacity = (smoothstep(3.8, 5.5, r) * (1.0 - smoothstep(38.0, 48.0, r))) * 0.8;
+                float deltaAngle = currentAngle - initialAngle;
+                float c = cos(deltaAngle);
+                float s = sin(deltaAngle);
+                mat3 rotY = mat3(
+                    c, 0, s,
+                    0, 1, 0,
+                   -s, 0, c
+                );
+                vec3 localPos = (instanceMatrix * vec4(position, 0.0)).xyz;
+                vec3 rotatedLocalPos = rotY * localPos;
+                gl_Position = projectionMatrix * viewMatrix * vec4(morphedWorldPos + rotatedLocalPos, 1.0);
+            }
+        `,
+        fragmentShader: `
+            varying vec3 vColor;
+            varying float vOpacity;
+            void main() {
+                gl_FragColor = vec4(vColor, vOpacity);
+            }
+        `,
+        transparent: true, blending: THREE.AdditiveBlending, depthWrite: false
+    });
+
+    const instancedDisk = new THREE.InstancedMesh(streakGeo, diskMaterial, instanceCount);
+    const dummy = new THREE.Object3D();
+
+    for (let i = 0; i < instanceCount; i++) {
+        const r = 5 + Math.pow(Math.random(), 1.3) * 40;
+        const angle = Math.random() * Math.PI * 2;
+        dummy.position.set(Math.cos(angle) * r, (Math.random() - 0.5) * (8 / r), Math.sin(angle) * r);
+        dummy.lookAt(dummy.position.x + Math.sin(angle), dummy.position.y, dummy.position.z - Math.cos(angle));
+        dummy.updateMatrix();
+        instancedDisk.setMatrixAt(i, dummy.matrix);
+    }
+    scene.add(instancedDisk);
+
+    const camControl = { distance: 85 };
+    controls.enableZoom = false;
+    controls.enabled = false;
+    window.mediaMotionPaused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const clock = new THREE.Clock();
+    function animate() {
+        requestAnimationFrame(animate);
+        if (document.hidden || window.mediaMotionPaused) return;
+        const time = clock.getElapsedTime();
+        diskMaterial.uniforms.uTime.value = time;
+        auraMat.uniforms.uTime.value = time;
+        instancedDisk.rotation.y += 0.0005;
+        const currentDir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
+        camera.position.x = controls.target.x + currentDir.x * camControl.distance;
+        camera.position.z = controls.target.z + currentDir.z * camControl.distance;
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    animate();
+
+} catch (e) { console.warn("Background unavailable; game continues."); }
+
+</script></body></html>
